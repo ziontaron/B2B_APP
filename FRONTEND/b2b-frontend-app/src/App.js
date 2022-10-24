@@ -1,21 +1,74 @@
 //import logo from "./logo.svg";
 import "./App.css";
-import LoginForm from "./components/login";
-import ListaDeTareas from "./components/ListaDeTareas";
-import CapInput from "./components/CapInput";
-
+import React, { useState, useEffect } from "react";
+import LoginForm from "./components/Login";
+import Layout from "./components/Layout";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import ActiveFunction from "./components/ActiveFunction";
+import POsContainer from "./components/POsContainer";
+//import Example from "./reports/TestRep";
 function App() {
+  // var _openPOs = [];
+  // _openPOs = [...apiResponse()];
+  const [session, setSession] = useState({
+    isLogged: false,
+    skey: "",
+    userID: 0,
+    userName: "",
+  });
+
+  //console.log("Loguin page LS: ", localStorage.getItem("sData"));
+
+  useEffect(() => {
+    const lsv = JSON.parse(localStorage.getItem("sData"));
+    //console.log(lsv);
+    if (lsv)
+      if (lsv.isLogged) {
+        setSession(lsv);
+      }
+  }, []);
+  const SessionMgr = (userId, userName, sessionKey) => {
+    if (sessionKey !== "") {
+      setSession({
+        isLogged: true,
+        userID: userId,
+        skey: sessionKey,
+        userName: userName,
+      });
+    } else {
+      setSession({
+        isLogged: false,
+        userId: "",
+        sessionKey: "",
+        userName: "",
+      });
+    }
+    localStorage.setItem(
+      "sData",
+      JSON.stringify({
+        isLogged: userId === "" ? false : true,
+        userID: userId,
+        skey: sessionKey,
+        userName: userName,
+      })
+    );
+  };
+
   return (
-    <div className="App">
-      <div className="app-header">
-        <h1>CAPSONIC B2B APP HEADER</h1>
-      </div>
-      <div className="app-body">
-        <LoginForm />
-      </div>
-      <div className="app-footer">
-        <h1>CAPSONIC B2B APP FOOTER</h1>
-      </div>
+    <div className='App'>
+      <Navbar setSession={SessionMgr} userName={session.userName}></Navbar>
+      <Layout>
+        <ActiveFunction>
+          {session.isLogged ? (
+            <POsContainer SessionInfo={session}></POsContainer>
+          ) : (
+            <LoginForm setLogin={SessionMgr}></LoginForm>
+          )}
+          {/* <Example /> */}
+        </ActiveFunction>
+      </Layout>
+      <Footer></Footer>
     </div>
   );
 }

@@ -21,6 +21,15 @@ namespace B2B_BACKEND.Repository
 
     public CommonResponse Login(UserLogInRequest User_Req )
     {
+      /*
+       test User
+      {
+        "userName": "V11505",
+        "userPass": "Capsonic.22"
+      }       
+       */
+
+
       B2B_User_ViewModel user;
       CommonResponse res = new CommonResponse();
 
@@ -39,6 +48,10 @@ namespace B2B_BACKEND.Repository
             Skey = _context.GenerateSHA(SHAPass + e.Salt)
           };
           res.Success(user);
+        }
+        else
+        {
+          res.Error("Invalid User Name or Password", null);
         }
       }
       else {

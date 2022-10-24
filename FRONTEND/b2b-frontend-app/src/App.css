@@ -4,29 +4,28 @@
 }
 
 .root {
-  width: 100%;
-  height: 100%;
-  display: flex;
+  /* width: 100%;
+  height: 100%; */
+  /* display: flex; */
 }
 
 html,
 body {
-  color: black;
   background-color: #eceff1;
-  font-family: Lato, sans-serif;
-  width: 100%;
-  height: 100%;
-  border: 1px solid black;
+  /* background-color: #eceff1; */
+  /* font-family: Lato, sans-serif; */
+  /* border: 1px solid black; */
+  overflow-x: hidden;
 }
 
 .App {
+  height: 100vh;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  padding-top: 15px;
-}
-.app-header {
-  display: flex;
-  width: 100%;
+  padding-top: 15px; */
 }

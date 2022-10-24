@@ -23,8 +23,28 @@ namespace B2B_BACKEND.Repository
     {
       CommonResponse res = new CommonResponse();
 
-      DataTable _t = new DataTable();
-      B2B_Users e = _context.B2B_Users.FirstOrDefault(u => u.UserID == User_Req.UserID);
+      DataTable _t = new DataTable();   
+
+      B2B_Users e = _context.B2B_Users.FirstOrDefault(u => u.UserID == User_Req.UserID );
+
+      string _Skey = "";
+
+      _Skey = _context.B2B_User_Verifivation(User_Req);
+
+      if (_Skey == "")
+      {
+        return res.Error("User Not Found", null);
+      }
+
+      //if (e == null)
+      //{
+      //  return res.Error("User Not Found", null);
+      //}
+      //_Skey = _context.GenerateSHA(e.UserHash + e.Salt);
+      //if(_Skey!= User_Req.Skey)
+      //{
+      //  return res.Error("User Not Found",null);
+      //}
 
       _t = _context.GetOpenOrders(e.VendorID);
 
@@ -54,26 +74,27 @@ namespace B2B_BACKEND.Repository
             ItemNumberDesc = r["ItemDescription"].ToString(),
             ItemUM = r["ItemUM"].ToString(),
             ItemRevision = r["ItemRevision"].ToString(),
-            Releases = new List<B2B_PO_Release_ViewModel>()            
+            Releases = new List<B2B_PO_Release_ViewModel>()
           };
           if (_Ack != null)
           {
             _h.Acknowledge = new B2B_Rel_Acknowledge_ViewModel
             {
-              Rel_AcknowledgeID=_Ack.Rel_AcknowledgeID,
-              UserID=_Ack.UserID,
-              FSPOLineKey=_Ack.FSPOLineKey,
-              VendorID=_Ack.VendorID,
-              Acknowledge=_Ack.Acknowledge,
-              AcknowledgeDate=_Ack.AcknowledgeDate,
-              Notes=_Ack.Notes
+              Rel_AcknowledgeID = _Ack.Rel_AcknowledgeID,
+              UserID = _Ack.UserID,
+              FSPOLineKey = _Ack.FSPOLineKey,
+              VendorID = _Ack.VendorID,
+              Acknowledge = _Ack.Acknowledge,
+              AcknowledgeDate = _Ack.AcknowledgeDate,
+              Notes = _Ack.Notes
 
             };
           }
         }
-        else 
+        else
         {
-          switch (r["POLineSubType"].ToString())
+          _Ack = _context.B2B_Rel_Acknowledge.FirstOrDefault(u => u.FSPOLineKey == Convert.ToInt32(r["POLineKey"].ToString()));
+        switch (r["POLineSubType"].ToString())
           {
             case "B":
               {
@@ -117,19 +138,20 @@ namespace B2B_BACKEND.Repository
               }
             case "S":
               {
-                #region PO Blanket Release
-                _h.Releases.Add(new B2B_PO_Release_ViewModel
-                {
-                  POLineKey = Convert.ToInt32(r["POLineKey"].ToString()),
-                  POLineType = r["POLineSubType"].ToString(),
-                  OrderedQuantity = Convert.ToInt32(r["LineItemOrderedQuantity"].ToString()),
-                  ReceiptQuantity = Convert.ToInt32(r["ReceiptQuantity"].ToString()),
-                  Balance = Convert.ToInt32(r["Balance"].ToString()),
-                  PromisedDate = (DateTime)r["OriginalPromisedDate"]
-                }); 
+              #region PO Blanket Release
+              B2B_PO_Release_ViewModel rel = new B2B_PO_Release_ViewModel
+              {
+                POLineKey = Convert.ToInt32(r["POLineKey"].ToString()),
+                POLineType = r["POLineSubType"].ToString(),
+                OrderedQuantity = Convert.ToInt32(r["LineItemOrderedQuantity"].ToString()),
+                ReceiptQuantity = Convert.ToInt32(r["ReceiptQuantity"].ToString()),
+                Balance = Convert.ToInt32(r["Balance"].ToString()),
+                PromisedDate = (DateTime)r["OriginalPromisedDate"]
+              };
+
                 if (_Ack != null)
                 {
-                  _h.Acknowledge = new B2B_Rel_Acknowledge_ViewModel
+                  rel.Acknowledge = new B2B_Rel_Acknowledge_ViewModel
                   {
                     Rel_AcknowledgeID = _Ack.Rel_AcknowledgeID,
                     UserID = _Ack.UserID,
@@ -140,8 +162,9 @@ namespace B2B_BACKEND.Repository
                     Notes = _Ack.Notes
                   };
                 }
+              _h.Releases.Add(rel);
                 #endregion
-                break;
+              break;
               }
             default:
               {
@@ -187,5 +210,12 @@ namespace B2B_BACKEND.Repository
       return res.Success(PO_List);
     }
 
+    public CommonResponse GetVendorPOLinesReport(B2B_User_ViewModel User_Req, string POno)
+    {
+      CommonResponse res = new CommonResponse();
+      B2B_PO_Report repData = new B2B_PO_Report();
+      repData= _context.Load_POln_RepData(POno);
+      return res.Success(repData);
+    }
   }
 }

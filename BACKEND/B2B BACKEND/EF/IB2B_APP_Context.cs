@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Threading;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Data;
+using B2B_BACKEND.ViewModels;
 
 namespace B2B_BACKEND.EF
 {
@@ -27,5 +28,8 @@ namespace B2B_BACKEND.EF
     string GenerateSHA(string toEncrypt);
     DataTable GetOpenOrders(string VendorID);
 
+    public B2B_PO_Report Load_POln_RepData(string PO);
+
+    public string B2B_User_Verifivation(B2B_User_ViewModel User_Req);
   }
 }

@@ -1,0 +1,38 @@
+.user-nav-container {
+  border: 2px solid black;
+  background-color: rgb(231, 54, 54);
+  border-radius: 15px;
+  /* width: 100px;
+  height: 60px; */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+}
+.user-nav-container p {
+  font-size: 12px;
+}
+.user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+button {
+  border: none;
+  background-color: black;
+  border-radius: 15px;
+  color: white;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.icon {
+  width: 27px;
+  height: 27px;
+  margin: 2px;
+}

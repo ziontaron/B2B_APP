@@ -1,0 +1,38 @@
+.release-container {
+  border: 5px solid #282a35;
+  /* background-color: #e7e9eb; */
+  /* background-color: rgb(81, 177, 177); */
+  padding-left: 10px;
+  background-color: rgb(233, 57, 57);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin-left: auto;
+  margin-right: 10px;
+  margin-bottom: 2px;
+  transition: 0.2s;
+}
+.release-container:nth-last-child(1) {
+  margin-bottom: 10px;
+}
+.release-field {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-left: 10px;
+}
+
+/* .release-container:hover {
+  padding-left: 10px;
+  background-color: rgb(141, 55, 55);
+  border-radius: 25px;
+} */
+
+.Aknowledge-Bubble {
+  float: right;
+  position: relative;
+  right: 35px;
+  top: 10px;
+  width: 0px;
+}

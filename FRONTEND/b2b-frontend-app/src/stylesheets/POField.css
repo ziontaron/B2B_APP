@@ -1,0 +1,19 @@
+.po-field {
+  border: 0px solid black;
+  /* background-color: rgb(93, 102, 102); */
+  color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 40px;
+  min-width: 75px;
+  font-size: 15px;
+  padding: 5px;
+  margin: 2px 0 2px 0;
+  /* justify-content: left; */
+}
+
+.po-field p {
+  font-weight: bold;
+}

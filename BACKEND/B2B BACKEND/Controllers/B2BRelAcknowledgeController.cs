@@ -2,6 +2,7 @@
 using B2B_BACKEND.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Reusable;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,11 @@ namespace B2B_BACKEND.Controllers
 
     [HttpPost]
     [Route("Acknowledge")]
-    public async Task<IActionResult> AcknowledgeRelese(AcknowledgeModelRequest req) 
+    public CommonResponse AcknowledgeRelese(AcknowledgeModelRequest req)
     {
-      await _IB2B_Rel_Acknowledge_Repo.AddAcknowledge(req);
-      return Ok();
+      CommonResponse res = new CommonResponse();
+      res = _IB2B_Rel_Acknowledge_Repo.AddAcknowledge(req);
+      return res;
     }
   }
 }

@@ -31,5 +31,13 @@ namespace B2B_BACKEND.Controllers
       return res;
 
     }
+    [HttpPost]
+    [Route("GetPOsRep")]
+    public CommonResponse GetPOsRep([FromBody] B2B_User_ViewModel req, string PO)
+    {
+      return _IB2B_Open_POs_Repo.GetVendorPOLinesReport(req, "PO-072022-02");
+      //return _IB2B_Open_POs_Repo.GetVendorPOLinesReport(req, PO);
+
+    }
   }
 }

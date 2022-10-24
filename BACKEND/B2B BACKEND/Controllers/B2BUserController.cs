@@ -1,6 +1,7 @@
 ﻿using B2B_BACKEND.Models;
 using B2B_BACKEND.Repository;
 using B2B_BACKEND.Requests;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Reusable;
@@ -10,7 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace B2B_BACKEND.Controllers
-{
+{ 
   [ApiController]
   [Route("api/[controller]")]
   public class B2BUserController : Controller

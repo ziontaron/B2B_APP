@@ -39,12 +39,18 @@ namespace B2B_BACKEND
       //services.AddDbContext<B2B_APP_Context>(opt => opt.UseInMemoryDatabase("MyDB"));
       services.AddDbContext<B2B_APP_Context>(opt => opt.UseSqlServer(Configuration.GetConnectionString("rsserver")));
 
+      services.AddCors();
+
+      
+
       services.AddTransient<IB2B_APP_Context, B2B_APP_Context>();
 
       services.AddTransient<IB2B_User_Repo, B2B_User_Repo>();
       services.AddTransient<IB2B_Rel_Acknowledge_Repo, B2B_Rel_Acknowledge_Repo>();
       services.AddTransient<IB2B_ASN_Repo, B2B_ASN_Repo>();
       services.AddTransient<IB2B_Open_POs_Repo, B2B_Open_POs_Repo>();
+
+
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +64,16 @@ namespace B2B_BACKEND
       }
       app.UseHttpsRedirection();
       app.UseRouting();
+
+      // global cors policy
+      app.UseCors(x => x
+          .AllowAnyMethod()
+          .AllowAnyHeader()
+          .SetIsOriginAllowed(origin => true) // allow any origin
+          .AllowCredentials()); // allow credentials
+
+
+
       app.UseAuthorization();
       app.UseEndpoints(endpoints =>
       {
