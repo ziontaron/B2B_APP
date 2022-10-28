@@ -1,12 +1,40 @@
 import * as React from "react";
 import "./ComponentToPrint.css";
 
-export const ComponentToPrint = React.forwardRef((props, ref) => {
-  const repData = props.repData;
+export const ComponentToPrint = React.forwardRef((ReportData, ref) => {
+  // console.log("ComponentToPrint repDataTest");
+  // console.log(ReportData);
+
+  let repData = {};
+  repData = ReportData;
+  console.log("ComponentToPrint repData");
+  console.log(repData);
+  // console.log("Type of  repData");
+  // console.log(typeof repData);
+  // console.log(Object.values(repData));
+  const po = repData.po;
+  console.log(po);
 
   const logo = require("./rep-img/CapsonicLogo.jpg");
   return (
-    <div className='sheet-margin' ref={ref}>
+    <div className='sheet-margin'>
+      <div>
+        <b>"ComponentToPrint repData"</b>
+      </div>
+      <div>-----</div>
+      <div>
+        <b> {JSON.stringify(repData, null, 2)} </b>
+      </div>
+      <div>-----</div>
+      <div>
+        <b> {repData["po"]} </b>
+      </div>
+      <div>-----</div>
+      <div>
+        <b>"ComponentToPrint repData"</b>
+      </div>
+    </div>
+    /*<div className='sheet-margin' ref={ref}>
       <div className='report-header'>
         <div className='report-header-item'>
           <p>CAPSONIC AUTOMOTIVE, INC.</p>
@@ -28,7 +56,7 @@ export const ComponentToPrint = React.forwardRef((props, ref) => {
           </div>
         </div>
       </div>
-      <div className='report-content'>
+       <div className='report-content'>
         <div className='report-content-item'>
           <p>PO REV ORIGINAL PO DATE: {repData.poOriginalDate}</p>
           <p>
@@ -113,7 +141,7 @@ export const ComponentToPrint = React.forwardRef((props, ref) => {
             </tbody>
           </table>
         </div>
-      </div>
+      </div> 
       <div className='report-separator'></div>
       <div className='report-footer'>
         <div>
@@ -191,6 +219,6 @@ export const ComponentToPrint = React.forwardRef((props, ref) => {
           </div>
         </div>
       </div>
-    </div>
+    </div>*/
   );
 });

@@ -1,14 +1,14 @@
 import "../stylesheets/BubbleAlert.css";
-const styles = {
-  bubbleAlert: {
-    backgroundColor: "#E9725A",
-    borderRadius: "15px",
-    color: "#fff",
-    padding: "2px 10px",
-    fontSize: "0.9rem",
-    width: "20px",
-  },
-};
+// const styles = {
+//   bubbleAlert: {
+//     backgroundColor: "#E9725A",
+//     borderRadius: "15px",
+//     color: "#fff",
+//     padding: "2px 10px",
+//     fontSize: "0.9rem",
+//     width: "20px",
+//   },
+// };
 function BubbleAlert({ value, clickbubble }) {
   function getNumber(value) {
     if (!value) {

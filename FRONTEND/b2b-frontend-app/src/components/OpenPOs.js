@@ -6,7 +6,7 @@ import BlanketRelease from "./BlanketRelease";
 import ReportBubble from "./ReportBubble";
 //import AcknowledgeField from "./AcknowledgeField";
 
-function OpenPOs({ OpenPO, SessionInfo, ReleaseInfo }) {
+function OpenPOs({ OpenPO, SessionInfo, ReleaseInfo, LoadRepData }) {
   const [openrel, setOpenrel] = useState(false);
   let RelArray = [];
   //var Acknowledge = OpenPO.acknowledge;
@@ -72,6 +72,11 @@ function OpenPOs({ OpenPO, SessionInfo, ReleaseInfo }) {
         <ReportBubble
           clickbubble={() => {
             console.log("ReportBubble for: " + OpenPO.poNumber);
+            LoadRepData(OpenPO.poNumber);
+            //const lsv = JSON.parse(localStorage.getItem("sData"));
+            // var modal = document.getElementById("report-modal");
+            // modal.style.display = "visible";
+            document.getElementById("reportModal").show();
           }}
         ></ReportBubble>
       </span>

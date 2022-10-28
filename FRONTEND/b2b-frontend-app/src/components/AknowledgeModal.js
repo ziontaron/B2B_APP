@@ -1,5 +1,4 @@
 import "../stylesheets/AknowledgeModal.css";
-import POField from "./POField";
 const url = "https://localhost:44309/api/B2BRelAcknowledge/Acknowledge";
 
 function AknowledgeModal({ ReleaseInfo, SessionInfo }) {

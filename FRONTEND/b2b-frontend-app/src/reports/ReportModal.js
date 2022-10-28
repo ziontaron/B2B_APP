@@ -5,6 +5,8 @@ import "./ReportModal.css";
 import { ComponentToPrint } from "./ComponentToPrint";
 
 const ReportModal = (repData) => {
+  console.log("repData from prop: ");
+  console.log(repData);
   const componentRef = useRef();
   const repDataTest = {
     poRevDate: "07/22/2022",
@@ -82,10 +84,10 @@ const ReportModal = (repData) => {
       },
     ],
   };
-  repData = repDataTest;
+  //repData = repDataTest;
   const closeButton = (e) => {
-    var modal = document.getElementById("report-modal");
-    modal.style.display = "none";
+    document.getElementById("reportModal").close();
+    //modal.style.display = "none";
   };
   return (
     <div id='report-modal' className='report-modal'>
@@ -99,7 +101,7 @@ const ReportModal = (repData) => {
         </span>
       </div>
       <div className='report-modal-content'>
-        <ComponentToPrint repData={repData} ref={componentRef} />
+        <ComponentToPrint ReportData={repData} ref={componentRef} />
       </div>
     </div>
   );
