@@ -1,0 +1,13 @@
+.dash-board-container {
+  border: 2px solid #282a35;
+  /* background-color: #e7e9eb; */
+  background-color: rgb(243, 243, 243);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  width: 80%;
+  height: 100%;
+  box-shadow: 0 2px 3px rgb(0, 0, 0, 0.5);
+  overflow: hidden;
+}

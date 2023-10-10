@@ -14,7 +14,7 @@ namespace B2B_BACKEND.Controllers
 { 
   [ApiController]
   [Route("api/[controller]")]
-  public class B2BUserController : Controller
+  public class B2BUserController : Controller 
   {
     private readonly IB2B_User_Repo _IB2B_User_Repo;
     public B2BUserController(IB2B_User_Repo IB2B_User_Repo)

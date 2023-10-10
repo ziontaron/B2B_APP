@@ -21,7 +21,6 @@ namespace B2B_BACKEND.Models
     [Required]
     public string Salt { get; set; }
 
-
     public DateTime LastLogin { get; set; }
     public DateTime CreatedDate { get; set; }
 

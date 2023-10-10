@@ -47,6 +47,9 @@ namespace B2B_BACKEND.Repository
             IsLogged = true,
             Skey = _context.GenerateSHA(SHAPass + e.Salt)
           };
+          e.LastLogin=DateTime.Now;
+          _context.B2B_Users.Update(e);
+          _context.SaveChanges();
           res.Success(user);
         }
         else

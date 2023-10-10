@@ -76,7 +76,7 @@ namespace B2B_BACKEND.EF
 
       string _q = @"SELECT * FROM [_CAP_B2B_POLn_Rep]
                   WHERE PONumber = '" + PO +
-                  "' ORDER BY POLineNumberString";
+                  "' ORDER BY POLineSubType,OriginalPromisedDate";
 
       DataTable _t = DB_MNG_FS.Execute_Query(_q);
 
@@ -182,6 +182,7 @@ namespace B2B_BACKEND.EF
           POln.OrderedQty = Convert.ToInt32(dr["LineItemOrderedQuantity"].ToString());
           POln.ReceiptQty = Convert.ToInt32(dr["ReceiptQuantity"].ToString());
           POln.PromiDock = ((DateTime)dr["OriginalPromisedDate"]).ToString("MM/dd/yyyy");
+          POln.POLineSubType = dr["POLineSubType"].ToString();
           unitcost = Convert.ToDecimal(
             (dr["ItemUnitCost"].ToString() == "" ?
             dr["NonInventoryItemControllingUnitCost"].ToString() :

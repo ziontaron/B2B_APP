@@ -5,8 +5,9 @@ import "./ReportModal.css";
 import { ComponentToPrint } from "./ComponentToPrint";
 
 const ReportModal = (repData) => {
-  console.log("repData from prop: ");
-  console.log(repData);
+  // console.log("repData from prop: ");
+  const _Data = JSON.parse(JSON.stringify(repData["repData"]));
+
   const componentRef = useRef();
   const repDataTest = {
     poRevDate: "07/22/2022",
@@ -42,7 +43,7 @@ const ReportModal = (repData) => {
     buyerInitials: "EC",
     buyerName: "Edna Camargo",
     ExtendedAmount: 1417.56,
-    POLines: [
+    polines: [
       {
         POLnKey: 123456,
         POLn: "001",
@@ -101,7 +102,7 @@ const ReportModal = (repData) => {
         </span>
       </div>
       <div className='report-modal-content'>
-        <ComponentToPrint ReportData={repData} ref={componentRef} />
+        <ComponentToPrint ReportData={_Data} ref={componentRef} />
       </div>
     </div>
   );

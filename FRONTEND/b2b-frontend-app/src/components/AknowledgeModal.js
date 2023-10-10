@@ -1,5 +1,5 @@
 import "../stylesheets/AknowledgeModal.css";
-const url = "https://localhost:44309/api/B2BRelAcknowledge/Acknowledge";
+import API_endpoint from "../lib/endpoints";
 
 function AknowledgeModal({ ReleaseInfo, SessionInfo }) {
   const closeButton = (e) => {
@@ -51,6 +51,9 @@ function AknowledgeModal({ ReleaseInfo, SessionInfo }) {
 
     //console.log("submit", formObj);
     //console.log("submit to api", AckApiModel);
+
+    const url = API_endpoint.target + API_endpoint.endpoint.Acknowledge;
+    //"https://localhost:44309/api/B2BRelAcknowledge/Acknowledge";
 
     const response = await fetch(url, {
       method: "POST",

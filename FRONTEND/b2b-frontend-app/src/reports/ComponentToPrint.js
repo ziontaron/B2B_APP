@@ -3,38 +3,17 @@ import "./ComponentToPrint.css";
 
 export const ComponentToPrint = React.forwardRef((ReportData, ref) => {
   // console.log("ComponentToPrint repDataTest");
-  // console.log(ReportData);
+  console.log(ReportData);
 
-  let repData = {};
-  repData = ReportData;
-  console.log("ComponentToPrint repData");
-  console.log(repData);
-  // console.log("Type of  repData");
-  // console.log(typeof repData);
-  // console.log(Object.values(repData));
-  const po = repData.po;
-  console.log(po);
+  //const Data = JSON.parse(JSON.stringify(ReportData));
+  //const Data = ReportData["ReportData"];
+  const repData = ReportData["ReportData"];
+  // console.log("ComponentToPrint repData");
+  // // const po = Data["ReportData"];
 
   const logo = require("./rep-img/CapsonicLogo.jpg");
   return (
-    <div className='sheet-margin'>
-      <div>
-        <b>"ComponentToPrint repData"</b>
-      </div>
-      <div>-----</div>
-      <div>
-        <b> {JSON.stringify(repData, null, 2)} </b>
-      </div>
-      <div>-----</div>
-      <div>
-        <b> {repData["po"]} </b>
-      </div>
-      <div>-----</div>
-      <div>
-        <b>"ComponentToPrint repData"</b>
-      </div>
-    </div>
-    /*<div className='sheet-margin' ref={ref}>
+    <div className='sheet-margin' ref={ref}>
       <div className='report-header'>
         <div className='report-header-item'>
           <p>CAPSONIC AUTOMOTIVE, INC.</p>
@@ -56,7 +35,7 @@ export const ComponentToPrint = React.forwardRef((ReportData, ref) => {
           </div>
         </div>
       </div>
-       <div className='report-content'>
+      <div className='report-content'>
         <div className='report-content-item'>
           <p>PO REV ORIGINAL PO DATE: {repData.poOriginalDate}</p>
           <p>
@@ -114,6 +93,7 @@ export const ComponentToPrint = React.forwardRef((ReportData, ref) => {
                 <th>Description</th>
                 <th>UM</th>
                 <th>REV</th>
+                <th>Type</th>
                 <th>Order Qty</th>
                 <th>Balance</th>
                 <th>Promised Dock</th>
@@ -122,26 +102,27 @@ export const ComponentToPrint = React.forwardRef((ReportData, ref) => {
               </tr>
             </thead>
             <tbody>
-              {repData.POLines.map((POln) => (
-                <tr key={POln.key}>
-                  <td className='field-center'>{POln.POLn}</td>
-                  <td>{POln.PN}</td>
-                  <td>{POln.PNDescription}</td>
-                  <td className='field-center'>{POln.UM}</td>
-                  <td className='field-center'>{POln.Rev}</td>
-                  <td className='field-right'>{POln.OrderedQty}</td>
+              {repData.polines.map((POln) => (
+                <tr key={POln.poLnKey}>
+                  <td className='field-center'>{POln.poLn}</td>
+                  <td>{POln.pn}</td>
+                  <td>{POln.pnDescription}</td>
+                  <td className='field-center'>{POln.um}</td>
+                  <td className='field-center'>{POln.rev}</td>
+                  <td className='field-center'>{POln.poLineSubType}</td>
+                  <td className='field-right'>{POln.orderedQty}</td>
                   <td className='field-right'>
-                    {POln.OrderedQty - POln.ReceiptQty}
+                    {POln.orderedQty - POln.receiptQty}
                   </td>
-                  <td className='field-center'>{POln.PromiDock}</td>
-                  <td className='field-right'>{POln.UnitPrice}</td>
-                  <td className='field-right'>{POln.ExtendedPrice}</td>
+                  <td className='field-center'>{POln.promiDock}</td>
+                  <td className='field-right'>{POln.unitPrice}</td>
+                  <td className='field-right'>{POln.extendedPrice}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      </div> 
+      </div>
       <div className='report-separator'></div>
       <div className='report-footer'>
         <div>
@@ -214,11 +195,11 @@ export const ComponentToPrint = React.forwardRef((ReportData, ref) => {
             <p>TOTAL EXTENDED AMOUNT</p>
             <br />
             <p>
-              THIS PURCHASE ORDER: <b>{repData.ExtendedAmount}</b>
+              THIS PURCHASE ORDER: <b>${repData.extendedAmount}</b>
             </p>
           </div>
         </div>
       </div>
-    </div>*/
+    </div>
   );
 });

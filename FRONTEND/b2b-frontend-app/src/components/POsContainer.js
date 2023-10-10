@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import OpenPOsList from "./OpenPOsList";
+import endpoints from "../lib/endpoints";
 
 function POsContainer({ SessionInfo }) {
-  const url = "https://localhost:44309/api/B2BOpen_POs/GetOpenPOs";
+  const url = endpoints.target + endpoints.endpoint.GetOpenPOs;
   const [OpenPOs, setOpenPOs] = useState([]);
   var _session = {
     userID: SessionInfo.userID,

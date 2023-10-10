@@ -65,6 +65,7 @@ namespace B2B_BACKEND.ViewModels
     public string PromiDock { get; set; }
     public decimal UnitPrice { get; set; }
     public decimal ExtendedPrice { get; set; }
+    public string POLineSubType { get; set; }
   }
 
 }

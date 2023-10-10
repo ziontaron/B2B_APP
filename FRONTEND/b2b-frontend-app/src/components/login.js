@@ -1,8 +1,10 @@
 import React from "react";
+import API_endpoint from "../lib/endpoints";
 import "../stylesheets/Login.css";
 
 function LoginForm({ setLogin }) {
-  const url = "https://localhost:44309/api/B2BUser/Login";
+  const url = API_endpoint.target + API_endpoint.endpoint.Login;
+  //"https://localhost:44309/api/B2BUser/Login";
   let _user = "";
   let _pass = "";
   let _sessionObj = {};

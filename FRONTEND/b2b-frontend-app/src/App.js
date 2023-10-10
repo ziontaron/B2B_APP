@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ActiveFunction from "./components/ActiveFunction";
 import POsContainer from "./components/POsContainer";
+import DashBoardContainer from "./components/DashBoardContainer";
 //import Example from "./reports/TestRep";
 function App() {
   // var _openPOs = [];
@@ -61,7 +62,11 @@ function App() {
       <Layout>
         <ActiveFunction>
           {session.isLogged ? (
-            <POsContainer SessionInfo={session}></POsContainer>
+            session.userName.toLowerCase() === "capadmin" ? (
+              <DashBoardContainer></DashBoardContainer>
+            ) : (
+              <POsContainer SessionInfo={session}></POsContainer>
+            )
           ) : (
             <LoginForm setLogin={SessionMgr}></LoginForm>
           )}

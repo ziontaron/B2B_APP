@@ -1,6 +1,7 @@
 import OpenPOs from "../components/OpenPOs";
 import AknowledgeModal from "./AknowledgeModal";
 import ReportModal from "../reports/ReportModal";
+import API_endpoint from "../lib/endpoints";
 
 import "../stylesheets/OpenPOsList.css";
 import { useState, useEffect } from "react";
@@ -9,78 +10,53 @@ function OpenPOsList({ OpenPOsArray, SessionInfo }) {
   //console.log("OpenPOsArray", OpenPOsArray);
   const _sessionInfo = SessionInfo;
   const [repData, setRepData] = useState({
-    poRevDate: "07/22/2022",
-    po: "PO-072022-02",
-    poOriginalDate: "07/20/2022",
-    contractNo: "123456789",
-    contact: "contact",
+    poRevDate: "",
+    po: "",
+    poOriginalDate: "",
+    contractNo: "",
+    contact: "",
     vendorInfo: {
-      id: "890020",
-      contact: "SUPPLIER INFORMATION",
-      contactPhone: "310-784-3100",
-      vendorName: "MAGNETIC COMPONENT ENGINEERING, INC.",
-      address1: "2830 LOMITA BLVD",
+      id: "",
+      contact: "",
+      contactPhone: "",
+      vendorName: "",
+      address1: "",
       address2: "",
-      city: "TORRANCE",
-      state: "CA",
-      zipcode: "90505",
-      country: "USA",
+      city: "",
+      state: "",
+      zipcode: "",
+      country: "",
     },
     shipToAddress: {
-      name: "CAPSONIC AUTOMOTIVE, INC.",
-      address1: "7B ZANE GREY STREET",
+      name: "",
+      address1: "",
       address2: "",
-      city: "EL PASO",
-      state: "TX",
-      zipcode: "79906",
-      country: "USA",
+      city: "",
+      state: "",
+      zipcode: "",
+      country: "",
     },
     transportVia: "",
     fobPoint: "",
-    paymentTerm: "NET 45 DAYS",
-    taxExemptNum: "3-82567-5708-9",
-    buyerInitials: "EC",
-    buyerName: "Edna Camargo",
-    ExtendedAmount: 1417.56,
-    POLines: [
+    paymentTerm: "",
+    taxExemptNum: "",
+    buyerInitials: "",
+    buyerName: "",
+    ExtendedAmount: 0.0,
+    polines: [
       {
-        POLnKey: 123456,
-        POLn: "001",
-        PN: "67622467-1",
-        PNDescription: "ROTOR ASSEMBLY",
-        UM: "EA",
-        Rev: "-",
-        OrderedQty: 3,
-        ReceiptQty: 0,
-        PromiDock: "08/17/2022",
-        UnitPrice: 472.52,
-        ExtendedPrice: 1417.56,
-      },
-      {
-        POLnKey: 12346,
-        POLn: "002",
-        PN: "67622467-1",
-        PNDescription: "ROTOR ASSEMBLY",
-        UM: "EA",
-        Rev: "-",
-        OrderedQty: 3,
-        ReceiptQty: 0,
-        PromiDock: "08/17/2022",
-        UnitPrice: 472.52,
-        ExtendedPrice: 1417.56,
-      },
-      {
-        POLnKey: 1236,
-        POLn: "002",
-        PN: "67622467-1",
-        PNDescription: "ROTOR ASSEMBLY",
-        UM: "EA",
-        Rev: "-",
-        OrderedQty: 3,
-        ReceiptQty: 0,
-        PromiDock: "08/17/2022",
-        UnitPrice: 472.52,
-        ExtendedPrice: 1417.56,
+        poLnKey: 1,
+        POLn: "",
+        PN: "",
+        poLineSubType: "",
+        um: "",
+        rev: "",
+        POLineSubType: "",
+        orderedQty: 0,
+        receiptQty: 0,
+        PromiDock: "",
+        UnitPrice: 0.0,
+        ExtendedPrice: 0.0,
       },
     ],
   });
@@ -94,17 +70,21 @@ function OpenPOsList({ OpenPOsArray, SessionInfo }) {
     promisedDate: "",
     receiptQuantity: 0,
   });
-  const _loadRepData = (PO) => {
-    //console.log("PO: " + PO);
+  const _loadRepPO = (PO) => {
+    //console.log({ PO });
     setPORep(PO);
+    //console.log({ poRep });
   };
+  const _loadReportsData = (Data) => {
+    console.log({ Data });
 
+    setRepData(Data);
+  };
   useEffect(() => {
     if (poRep) {
       //console.log("from UseEffect PO: " + poRep);
 
-      const url =
-        "https://localhost:44309/api/B2BOpen_POs/GetPOsRep?PO=" + poRep;
+      const url = API_endpoint.target + API_endpoint.endpoint.GetPOsRep + poRep;
       const getReport = async () => {
         const resp = await fetch(url, {
           method: "POST",
@@ -114,9 +94,9 @@ function OpenPOsList({ OpenPOsArray, SessionInfo }) {
           body: JSON.stringify(_sessionInfo),
         });
         const json = await resp.json();
-        // console.log("Fetching PO: ");
-        // console.log(JSON.stringify(json.result));
-        setRepData(json.result);
+        //console.log(JSON.stringify(json.result));
+        _loadReportsData(json.result);
+        //console.log("Fetching PO Successfully");
       };
       getReport()
         // make sure to catch any error
@@ -124,6 +104,8 @@ function OpenPOsList({ OpenPOsArray, SessionInfo }) {
 
       // console.log("fetch response:");
       // console.log(repData);
+    } else {
+      console.error("Error fetching PO");
     }
   }, [poRep]);
 
@@ -162,12 +144,12 @@ function OpenPOsList({ OpenPOsArray, SessionInfo }) {
           OpenPO={PO}
           ReleaseInfo={Release2Acknoledge}
           SessionInfo={_sessionInfo}
-          LoadRepData={_loadRepData}
+          LoadRepPO={_loadRepPO}
         />
       ))}
       <dialog id='reportModal'>
         {/* {poRep ? console.log("Modal " + repData) : null} */}
-        {poRep ? <ReportModal repData={repData}></ReportModal> : null}
+        {repData ? <ReportModal repData={repData}></ReportModal> : null}
       </dialog>
       <AknowledgeModal ReleaseInfo={PORelease} SessionInfo={_sessionInfo} />
     </div>

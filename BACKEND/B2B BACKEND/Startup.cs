@@ -41,7 +41,7 @@ namespace B2B_BACKEND
 
       services.AddCors();
 
-      
+
 
       services.AddTransient<IB2B_APP_Context, B2B_APP_Context>();
 

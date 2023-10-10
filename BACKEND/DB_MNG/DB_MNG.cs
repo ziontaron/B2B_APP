@@ -9,7 +9,7 @@ using System.Data.OleDb;
 using System.IO;
 using System.Data.SqlClient;
 using System.Net.Mail;
-
+using Microsoft.Data.SqlClient;
 
 namespace DB_MNG
 {
@@ -128,7 +128,7 @@ namespace DB_MNG
     public SQL(string Server, string DBname, string User, string Pass)
     {
       _sql_con_str = "Data Source=" + Server + ";Initial Catalog=" + DBname +
-          ";Persist Security Info=True;User ID=" + User + ";Password=" + Pass;
+          ";Persist Security Info=True;User ID=" + User + ";Password=" + Pass+ "; trustServerCertificate=true;";
       _connection = new SqlConnection(_sql_con_str);
     }
 
