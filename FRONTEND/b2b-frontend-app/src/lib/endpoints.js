@@ -3,6 +3,7 @@ const API_endpoint = {
 		dev: "https://localhost:44309",
 		prod: "https://192.168.0.6/b2b_backend",
 		host: "https://192.168.0.100:5001",
+		host2: "https://ferlap-01:5001",
 	},
 
 	target: "https://apps.capsonic.com/B2B_API",
