@@ -19,7 +19,7 @@ const styles = {
 function Footer() {
 	return (
 		<div style={styles.footer}>
-			<h1>Capsonic Automotive and Aerospace</h1>
+			<h2>Capsonic Automotive and Aerospace</h2>
 		</div>
 	);
 }
